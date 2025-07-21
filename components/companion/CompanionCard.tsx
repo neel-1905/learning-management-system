@@ -1,3 +1,4 @@
+import { getSubjectColor } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,7 +8,7 @@ type CompanionCardProps = {
   topic: string;
   subject: string;
   duration: number;
-  color: string;
+  customColor?: string;
 };
 
 const CompanionCard = ({
@@ -16,8 +17,10 @@ const CompanionCard = ({
   topic,
   subject,
   duration,
-  color,
+  customColor,
 }: CompanionCardProps) => {
+  const color = customColor || getSubjectColor(subject);
+
   return (
     <article
       className="companion-card"

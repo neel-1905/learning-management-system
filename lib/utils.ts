@@ -1,13 +1,13 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { subjectsColors, /* voices */ } from "@/constants";
+import { subjectsColors /* voices */ } from "@/constants";
 // import { CreateAssistantDTO } from "@vapi-ai/web/dist/api";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 export const getSubjectColor = (subject: string) => {
-  return subjectsColors[subject as keyof typeof subjectsColors];
+  return subjectsColors[subject.toLowerCase() as keyof typeof subjectsColors];
 };
 
 // export const configureAssistant = (voice: string, style: string) => {
@@ -41,7 +41,7 @@ export const getSubjectColor = (subject: string) => {
 //         {
 //           role: "system",
 //           content: `You are a highly knowledgeable tutor teaching a real-time voice session with a student. Your goal is to teach the student about the topic and subject.
-  
+
 //                     Tutor Guidelines:
 //                     Stick to the given topic - {{ topic }} and subject - {{ subject }} and teach the student about it.
 //                     Keep the conversation flowing smoothly while maintaining control.

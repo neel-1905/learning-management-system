@@ -2,7 +2,6 @@ import CompanionCard from "@/components/companion/CompanionCard";
 import SearchInput from "@/components/shared/SearchInput";
 import SubjectFilter from "@/components/shared/SubjectFilter";
 import { getAllCompanions } from "@/lib/actions/companion.actions";
-import { getSubjectColor } from "@/lib/utils";
 
 const page = async ({ searchParams }: SearchParams) => {
   const filters = await searchParams;

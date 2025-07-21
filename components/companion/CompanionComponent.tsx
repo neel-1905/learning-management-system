@@ -94,7 +94,7 @@ const CompanionComponent = ({
       serverMessages: [],
     };
 
-    // @ts-expect-error
+    // @ts-expect-error vapi.start has dynamic overloads not picked up by TypeScript
     vapi.start(configureAssistant(voice, style), assistantOverrides);
   };
 

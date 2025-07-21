@@ -1,7 +1,7 @@
 import CompanionCard from "@/components/companion/CompanionCard";
 import SearchInput from "@/components/shared/SearchInput";
 import SubjectFilter from "@/components/shared/SubjectFilter";
-import { getAllCommpanions } from "@/lib/actions/companion.actions";
+import { getAllCompanions } from "@/lib/actions/companion.actions";
 import { getSubjectColor } from "@/lib/utils";
 
 const page = async ({ searchParams }: SearchParams) => {
@@ -10,7 +10,7 @@ const page = async ({ searchParams }: SearchParams) => {
   const subject = filters.subject ? filters?.subject : "";
   const topic = filters.topic ? filters?.topic : "";
 
-  const companions = await getAllCommpanions({ subject, topic });
+  const companions = await getAllCompanions({ subject, topic });
 
   return (
     <main>

@@ -1,36 +1,24 @@
 import CompanionCard from "@/components/companion/CompanionCard";
 import CompanionsList from "@/components/companion/CompanionsList";
 import CTA from "@/components/shared/CTA";
-import { recentSessions } from "@/constants";
+import {
+  getAllCompanions,
+  getRecentSessions,
+} from "@/lib/actions/companion.actions";
 import React from "react";
 
-const Page = () => {
+const Page = async () => {
+  const companions = await getAllCompanions({ limit: 3 });
+
+  const recentSessions = await getRecentSessions(10);
+
   return (
     <main>
       <h1 className="text-3xl">Popular Companions</h1>
-
       <section className="home-section">
-        <CompanionCard
-          id="123"
-          name="Neura the Brainy Explorer"
-          topic="Neural Network of the brain"
-          subject="Science"
-          duration={45}
-        />
-        <CompanionCard
-          id="456"
-          name="Neura the Brainy Explorer"
-          topic="Neural Network of the brain"
-          subject="Maths"
-          duration={45}
-        />
-        <CompanionCard
-          id="789"
-          name="Neura the Brainy Explorer"
-          topic="Neural Network of the brain"
-          subject="Language"
-          duration={45}
-        />
+        {companions?.map((companion) => (
+          <CompanionCard key={companion.id} {...companion} />
+        ))}
       </section>
 
       <section className="home-section">

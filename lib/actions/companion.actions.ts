@@ -22,7 +22,7 @@ export const createCompanion = async (formData: CreateCompanion) => {
   return data[0];
 };
 
-export const getAllCommpanions = async ({
+export const getAllCompanions = async ({
   limit = 10,
   page = 1,
   subject,
@@ -60,4 +60,51 @@ export const getCompanion = async (id: string) => {
   if (error) throw new Error(error?.message || "Failed to fetch companion!");
 
   return data?.[0];
+};
+
+export const addToSessionHistory = async (companionId: string) => {
+  const { userId } = await auth();
+
+  const supabase = await createSupabaseClient();
+
+  const { data, error } = await supabase.from("session_history").insert({
+    user_id: userId,
+    companion_id: companionId,
+  });
+
+  if (error)
+    throw new Error(error?.message || "Failed to add to session history!");
+
+  return data;
+};
+
+export const getRecentSessions = async (limit = 10) => {
+  const supabase = await createSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("session_history")
+    .select("companions: companion_id(*)")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error)
+    throw new Error(error?.message || "Failed to fetch recent sessions!");
+
+  return data.map(({ companions }) => companions);
+};
+
+export const getUserSessions = async (userId: string, limit = 10) => {
+  const supabase = await createSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("session_history")
+    .select("companions: companion_id(*)")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error)
+    throw new Error(error?.message || "Failed to fetch recent sessions!");
+
+  return data.map(({ companions }) => companions);
 };
